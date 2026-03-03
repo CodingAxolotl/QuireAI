@@ -1,11 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <title>Quire - Creeper Labs</title>
 
-  <!-- External CSS (optional, works without it) -->
-  <link rel="stylesheet" href="https://raw.githubusercontent.com/CodingAxolotl/quireDT/refs/heads/main/style.css">
+  <!-- Dynamic CSS loader -->
+  <script>
+    const cssLink = "https://raw.githubusercontent.com/CodingAxolotl/quireDT/refs/heads/main/style.css";
+    fetch(cssLink)
+      .then(response => response.text())
+      .then(css => {
+        const styleEl = document.createElement("style");
+        styleEl.textContent = css;
+        document.head.appendChild(styleEl);
+      })
+      .catch(() => console.warn("Could not load external CSS, continuing with default styles"));
+  </script>
 </head>
 <body>
 
