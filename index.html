@@ -32,7 +32,7 @@ async function init() {
   output.textContent = "Fetching dataset...";
 
   // 🔁 Replace with your GitHub raw dataset link
-  const response = await fetch("PASTE_YOUR_RAW_LINK_HERE");
+  const response = await fetch("https://raw.githubusercontent.com/CodingAxolotl/MyAI/refs/heads/main/dataset.json");
   dataset = await response.json();
 
   output.textContent = "Embedding dataset...";
