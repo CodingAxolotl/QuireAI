@@ -2,31 +2,52 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Quire Minimal</title>
+  <title>Quire</title>
+
+  <!-- Load CSS from jsDelivr -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/CodingAxolotl/quireDT@main/style.css">
+
+  <!-- Load Quire library -->
+  <script type="module"
+          src="https://cdn.jsdelivr.net/gh/CodingAxolotl/QuireDT@main/quire.js"></script>
 </head>
 <body>
 
-<h2>Quire Test</h2>
+<div class="app">
 
-<p id="status">Loading...</p>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">Q</div>
+      <div class="brand-text">
+        <div class="title">Quire</div>
+        <div class="subtitle">by Creeper Labs</div>
+      </div>
+    </div>
+    <div id="status" class="status">Initializing...</div>
+  </div>
 
-<input id="input" placeholder="Type message..." disabled>
-<button id="send" disabled>Send</button>
+  <div class="chat-wrapper">
+    <div id="chat-box" class="chat-box"></div>
 
-<p><strong>Response:</strong> <span id="output"></span></p>
+    <div class="input-area">
+      <input id="input" placeholder="Message Quire..." disabled>
+      <button id="send" disabled>Send</button>
+    </div>
+  </div>
 
-<!-- Load your GitHub RAW quire.js -->
-<script type="module" src="https://cdn.jsdelivr.net/gh/CodingAxolotl/QuireDT@main/quire.js"></script>
+</div>
 
 <script type="module">
+
   const status = document.getElementById("status");
   const input = document.getElementById("input");
   const button = document.getElementById("send");
-  const output = document.getElementById("output");
+  const chat = document.getElementById("chat-box");
 
   async function start() {
     await quire.init();
-    status.textContent = "Quire is online.";
+    status.textContent = "Online";
     input.disabled = false;
     button.disabled = false;
   }
@@ -35,11 +56,23 @@
     const text = input.value.trim();
     if (!text) return;
 
+    addMessage("user", text);
+    input.value = "";
+
     const reply = await quire.ask(text);
-    output.textContent = reply;
+    addMessage("bot", reply);
   };
 
+  function addMessage(type, text) {
+    const div = document.createElement("div");
+    div.className = "message " + type;
+    div.textContent = text;
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
   start();
+
 </script>
 
 </body>
